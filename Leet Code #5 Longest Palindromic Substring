@@ -1,0 +1,84 @@
+import java.lang.StringBuilder;
+import java.util.ArrayList;
+
+public class LongestPalindromicSubstring {
+  public static void main(String[] args) {
+
+    longestPalindrome();
+
+  }
+
+  private static void longestPalindrome() {
+
+    String s = "4Doc, Note: I Dissent. A Fast Never Prevents A Fatness. I Diet On Cod.";
+    s = s.replaceAll("\\s", "").toLowerCase().replaceAll("\\p{Punct}+", "");
+
+
+    StringBuilder sb = new StringBuilder();
+    ArrayList < String > palindromeStore = new ArrayList<>();
+
+    int palindromeCount = 0;
+
+    System.out.println("String length: " + s.length());
+
+    for (int i = s.length() - 1; i >= 0; i--) {
+      sb.append(s.charAt(i));
+    }
+
+    if (isPalindrome(s)) {
+      System.out.println("Longest palindrome is " + s.length() + " characters long.");
+    } else if (!sb.toString().equals(s)) {
+
+      for (int i = 0; i < s.length() - 1; i++) {
+        System.out.println("Scanning from letter " + i);
+        for (int z = i + 1; z < s.length() + 1; z++) {
+
+          String substr = s.substring(i, z);
+          if (isPalindrome(substr) && substr.length() > 1) {
+            palindromeStore.add(substr);
+            palindromeCount++;
+
+          }
+
+        }
+        System.out.println("");
+      }
+      System.out.println("Number of palindromes in substrings: " + palindromeCount);
+    }
+
+
+    for (String value: palindromeStore) System.out.println("Palindromes: " + value);
+
+    String longestPalindrome = "";
+    for (String value: palindromeStore) {
+
+      if (value.length() > longestPalindrome.length()) {
+        longestPalindrome = value;
+
+      }
+    }
+    System.out.println("Longest palindrome in string: " + longestPalindrome);
+
+  }
+
+  private static boolean isPalindrome(String p) {
+
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = p.length() - 1; i >= 0; i--) {
+      sb.append(p.charAt(i));
+    }
+
+    if (sb.toString().equals(p) && p.length() > 1) {
+      System.out.println(p + " is a palindrome.");
+      return true;
+    } else if (p.length() > 1) {
+      System.out.println(p + " is not a palindrome.");
+      return false;
+    } else {
+      return false;
+    }
+
+  }
+
+}
