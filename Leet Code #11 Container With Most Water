@@ -1,0 +1,35 @@
+import java.lang.Math;
+
+class ContainerWithMostWater {
+    
+    public int maxArea(int[] height) {
+        
+        int largestVolume = 0;
+
+        for(int i = 0; i < height.length; i++){
+
+          for (int z = 1; z < height.length; z++){
+
+            int width = i - z;
+
+            width = Math.abs(width);
+
+            int maxHeight = height[i];
+
+            if(height[i] > height[z]) { maxHeight = height[z];}
+
+            else if(height[i] < height[z]) {maxHeight = height[i];}
+
+            int volume = width * maxHeight;
+
+            if(volume > largestVolume) {largestVolume = volume;}
+
+          }
+
+        }
+
+        return largestVolume;
+        
+    }
+    
+}
